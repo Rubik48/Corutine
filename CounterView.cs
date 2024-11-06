@@ -24,6 +24,6 @@ public class CounterView : MonoBehaviour
 
     private void ChangeTime()
     {
-        _text.text = "Count: " + _counter.Time;
+        _text.text = "Count: " + _counter.Value;
     }
 }

@@ -7,13 +7,15 @@ public class Counter : MonoBehaviour
     [SerializeField] private CounterButton _counterButton;
 
     private bool _isActive = false;
-    private float _time = 0f;
+    private float _value = 0f;
     private float _timeDelay = 1f;
     private Coroutine _countTime;
+    
+    public bool IsActive => _isActive;
 
     public event Action ChagedTime;
 
-    public float Time => _time;
+    public float Value => _value;
 
     private void OnEnable()
     {
@@ -25,11 +27,6 @@ public class Counter : MonoBehaviour
         _counterButton.Clicked -= Run;
     }
 
-    private void Start()
-    {
-        ChangeTextButton();
-    }
-
     private void Run()
     {
         if (_isActive)
@@ -39,26 +36,19 @@ public class Counter : MonoBehaviour
         }
         else
         {
-            _countTime = StartCoroutine(CountTime());
+            _countTime = StartCoroutine(RunStopWatch());
             _isActive = true;
         }
-        
-        ChangeTextButton();
     }
-
-    private void ChangeTextButton()
-    {
-        _counterButton.TextButton.text = _isActive ? "Stop" : "Run";
-    }
-
-    private IEnumerator CountTime()
+    
+    private IEnumerator RunStopWatch()
     {
         var wait = new WaitForSecondsRealtime(_timeDelay);
 
         while (true)
         {
             yield return wait;
-            _time++;
+            _value++;
             ChagedTime?.Invoke();
         }
     }
