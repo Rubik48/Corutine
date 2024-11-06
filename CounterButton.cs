@@ -19,7 +19,7 @@ public class CounterButton : MonoBehaviour
 
     private void OnDisable()
     {
-        _button.onClick.RemoveAllListeners();
+        _button.onClick.RemoveListener(() => Clicked?.Invoke());
         Clicked -= ChangeTextButton;
     }
 
