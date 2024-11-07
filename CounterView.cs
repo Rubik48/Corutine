@@ -9,12 +9,12 @@ public class CounterView : MonoBehaviour
 
     private void OnEnable()
     {
-        _counter.ChagedTime += ChangeTime;
+        _counter.ValueChanged += ChangeTime;
     }
 
     private void OnDisable()
     {
-        _counter.ChagedTime -= ChangeTime;
+        _counter.ValueChanged -= ChangeTime;
     }
 
     private void Start()

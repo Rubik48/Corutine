@@ -13,19 +13,24 @@ public class CounterButton : MonoBehaviour
 
     private void OnEnable()
     {
-        _button.onClick.AddListener(() => Clicked?.Invoke());
-        Clicked += ChangeTextButton;
+        _button.onClick.AddListener(OnButtonClick);
     }
 
     private void OnDisable()
     {
-        _button.onClick.RemoveListener(() => Clicked?.Invoke());
-        Clicked -= ChangeTextButton;
+        _button.onClick.RemoveListener(OnButtonClick);
     }
 
     private void Start()
     {
         ChangeTextButton();
+    }
+
+    private void OnButtonClick()
+    {
+        ChangeTextButton();
+        
+        Clicked?.Invoke();
     }
 
     private void ChangeTextButton()

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Counter : MonoBehaviour
 {
-    [SerializeField] private CounterButton _counterButton;
+    [SerializeField] private CounterButton _button;
 
     private bool _isActive = false;
     private float _value = 0f;
@@ -13,18 +13,18 @@ public class Counter : MonoBehaviour
     
     public bool IsActive => _isActive;
 
-    public event Action ChagedTime;
+    public event Action ValueChanged;
 
     public float Value => _value;
 
     private void OnEnable()
     {
-        _counterButton.Clicked += Run;
+        _button.Clicked += Run;
     }
 
     private void OnDisable()
     {
-        _counterButton.Clicked -= Run;
+        _button.Clicked -= Run;
     }
 
     private void Run()
@@ -48,8 +48,9 @@ public class Counter : MonoBehaviour
         while (true)
         {
             yield return wait;
+            
             _value++;
-            ChagedTime?.Invoke();
+            ValueChanged?.Invoke();
         }
     }
 }
